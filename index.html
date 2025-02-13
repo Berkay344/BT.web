@@ -22,7 +22,7 @@
             flex-direction: column;
         }
         .error-icon img {
-            width: 170px; /* Büyük olması için */
+            width: 200px;
             height: auto;
             margin-bottom: 20px;
         }
@@ -63,19 +63,29 @@
 </head>
 <body>
 
+    <!-- Şampiyonlar Ligi Müziği -->
+    <audio id="championsMusic">
+        <source src="https://files.catbox.moe/2v5dqr.mp3" type="audio/mpeg">
+        Tarayıcınız ses dosyasını desteklemiyor.
+    </audio>
+
     <div class="error-icon">
         <img src="https://i.hizliresim.com/5rg0rmf.png" alt="Hata İkonu">
     </div>
 
     <div class="container">
         <h1>Hay Aksi!</h1>
-        <p>Şuanda Hizmet Veremiyoruz Lütfen Daha sonra Tekrar deneyiniz.</p>
-        <button class="btn" onclick="reloadPage()">Yeniden Dene</button>
+        <p>Şu anda hizmet veremiyoruz, lütfen daha sonra tekrar deneyiniz.</p>
+        <button class="btn" onclick="startMusic()">Yeniden Deneyin</button>
     </div>
 
     <script>
-        function reloadPage() {
-            location.reload();
+        function startMusic() {
+            let audio = document.getElementById("championsMusic");
+            audio.volume = 0.5; // Ses seviyesini %50'ye ayarla
+            audio.play().catch(error => {
+                console.log("Otomatik oynatma engellendi:", error);
+            });
         }
     </script>
 
