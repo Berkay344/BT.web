@@ -60,7 +60,7 @@
             width: 100%;
         }
 
-        /* Kanal Seçme Menüsü */
+        /* Kanal Seçme Butonları ve Menü */
         .channel-menu-container {
             margin-top: 20px;
             position: relative;
@@ -142,25 +142,31 @@
         }
 
         .instagram-container {
-            margin-top: 30px;
+            margin-top: 20px;
         }
 
         .instagram-btn {
-            display: flex;
-            align-items: center;
-            background: #00FF00;
-            padding: 12px 20px;
-            border-radius: 10px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 18px;
-            transition: 0.3s;
-            box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
-        }
+    display: flex;
+    align-items: center;
+    background: #00FF00;
+    padding: 8px 15px;  /* Butonun boyutunu küçültmek için padding değerini düşürdük */
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 14px;  /* Font boyutunu küçülttük */
+    transition: 0.3s;
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+}
+
+.instagram-btn img {
+    width: 20px;  /* İkon boyutunu küçülttük */
+    height: 20px;
+    margin-right: 8px;  /* İkon ile yazı arasındaki mesafeyi biraz küçülttük */
+}
 
         .instagram-btn img {
-            width: 24px;
-            height: 24px;
+            width: 40px;
+            height: 40px;
             margin-right: 10px;
         }
 
@@ -170,6 +176,54 @@
 
         .instagram-btn:hover {
             opacity: 0.8;
+        }
+
+        /* Uyarı Penceresi Stil */
+        .warning-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: red; /* Kırmızı arka plan */
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    font-family: 'PF Tempesta Seven', sans-serif;
+    font-size: 18px;
+    text-align: center;
+    display: none; /* Başlangıçta gizli */
+    z-index: 1000; /* Diğer öğelerin üstünde gösterilsin */
+}
+
+.warning-message {
+    font-weight: bold;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 90px;
+    color: white;
+    cursor: pointer;
+}
+
+        .warning-message {
+            font-weight: bold;
+        }
+
+        .close-btn {
+    position: absolute;
+    top: -10px;  /* Çarpıyı biraz yukarı taşımak için top değerini düşürdük */
+    right: 10px;
+    font-size: 28px;  /* Çarpıyı büyütmek için font-size değerini arttırdık */
+    color: white;
+    cursor: pointer;
+}
+
+        .close-btn:hover {
+            color: #000;
         }
     </style>
 </head>
@@ -202,44 +256,51 @@
     <!-- Instagram Butonu -->
     <div class="instagram-container">
         <a href="https://www.instagram.com/turtle.2969298" class="instagram-btn" target="_blank">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram">
-            <span>Beni Takip Et</span>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/9/95/Instagram_logo_2022.svg" alt="Instagram Logo">
+            <span>İnstagram Sayfama Git</span>
         </a>
     </div>
 
+    <!-- Uyarı Penceresi -->
+    <div id="warning-popup" class="warning-popup" style="display: none;">
+        <span class="warning-message">Yayınlar Başka Sitelerden Çekilmektedir Donmalardan Berkay Tv Sorumlu değildir.</span>
+        <span class="close-btn" onclick="closeWarningPopup()">×</span>
+    </div>
+
     <script>
-        // Kanal menüsünü açıp kapat
+        // Menü açma/kapama
         function toggleMenu() {
-            var dropdown = document.getElementById("channel-dropdown");
-            dropdown.style.display = (dropdown.style.display === "block") ? "none" : "block";
+            var dropdown = document.getElementById('channel-dropdown');
+            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
         }
 
+        // Kanal değiştir
         function changeChannel(channel) {
-            var channelContent = document.getElementById("channel-content");
-            var channelTitle = document.getElementById("channel-title");
-            var channelIframe = document.getElementById("channel-iframe");
-            var gifContainer = document.querySelector('.gif-container');
+            var iframe = document.getElementById('channel-iframe');
+            var channelTitle = document.getElementById('channel-title');
+            var channelContent = document.getElementById('channel-content');
 
-            if
-(channel === 'bein1') {
-                channelTitle.textContent = "Bein Sports 1";
-                channelIframe.src = "https://misbahistv23.com/channel?id=yayinzirve"; // Örnek Bein Sports 1 yayını
-                gifContainer.style.display = "none"; // GIF'i gizle
-            } else if (channel === 'blu1') {
-                channelTitle.textContent = "Blu TV Play 1";
-                channelIframe.src = "https://15595674c0604ed6.mediapackage.eu-central-1.amazonaws.com/out/v1/dbc93664979b4b6db20d13f0d58f4b07/index.m3u8"; // Örnek Blu TV Play 1 yayını
-                gifContainer.style.display = "none"; // GIF'i gizle
-            } else if (channel === 'blu2') {
-                channelTitle.textContent = "Blu TV Play 2";
-                channelIframe.src = "https://15595674c0604ed6.mediapackage.eu-central-1.amazonaws.com/out/v1/f0134e8bd5cc4964bbdbc12aff9bf27e/index_7.m3u8"; // Örnek Blu TV Play 2 yayını
-                gifContainer.style.display = "none"; // GIF'i gizle
-            } else if (channel === 'exxen1') {
-                channelTitle.textContent = "Exxen Spor 1";
-                channelIframe.src = "https://bcovlive-a.akamaihd.net/88affc2b8d9845d9adb0f4a22db27653/eu-central-1/6415845530001/playlist.m3u8"; // Örnek Exxen Spor 1 yayını
-                gifContainer.style.display = "none"; // GIF'i gizle
-            }
+            // Uygun kanal URL'leri
+            var channelUrls = {
+                'bein1': 'https://misbahistv23.com/channel?id=yayinzirve',
+                'blu1': 'https://15595674c0604ed6.mediapackage.eu-central-1.amazonaws.com/out/v1/dbc93664979b4b6db20d13f0d58f4b07/index.m3u8',
+                'blu2': 'https://15595674c0604ed6.mediapackage.eu-central-1.amazonaws.com/out/v1/f0134e8bd5cc4964bbdbc12aff9bf27e/index_7.m3u8',
+                'exxen1': 'https://bcovlive-a.akamaihd.net/88affc2b8d9845d9adb0f4a22db27653/eu-central-1/6415845530001/playlist.m3u8'
+            };
 
-            channelContent.style.display = "block"; // Kanal içeriğini göster
+            iframe.src = channelUrls[channel];
+            channelTitle.textContent = 'Şu anda ' + channel.toUpperCase() + ' kanalını izliyorsunuz';
+            channelContent.style.display = 'block';
+        }
+
+        // Uyarı penceresini aç
+        window.onload = function() {
+            document.getElementById('warning-popup').style.display = 'block';
+        };
+
+        // Uyarı penceresini kapat
+        function closeWarningPopup() {
+            document.getElementById('warning-popup').style.display = 'none';
         }
     </script>
 </body>
