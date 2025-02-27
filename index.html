@@ -3,91 +3,244 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hay Aksi!</title>
+    <title>Berkay Tv</title>
+    <link rel="icon" type="image/png" href="https://i.hizliresim.com/ijw1qmf.jpg">
+    <link href="https://fonts.cdnfonts.com/css/pf-tempesta-seven" rel="stylesheet">
+    
     <style>
-        * {
+        body {
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: Arial, sans-serif;
-            background: #000;
-            color: #fff;
+            background-color: #040a40; /* Koyu uzay teması */
+            background-image:  
+                radial-gradient(2px 2px at 20px 30px, white, transparent), /* Küçük yıldızlar */
+                radial-gradient(2px 2px at 100px 150px, white, transparent),  
+                radial-gradient(1px 1px at 250px 80px, #BBBBBB, transparent), /* Gri yıldızlar */
+                radial-gradient(2px 2px at 400px 300px, white, transparent),  
+                linear-gradient(45deg, rgba(255, 255, 255, 0.08) 25%, transparent 25%, transparent 75%, rgba(255, 255, 255, 0.08) 75%, rgba(255, 255, 255, 0.08)),  
+                linear-gradient(45deg, rgba(255, 255, 255, 0.08) 25%, transparent 25%, transparent 75%, rgba(255, 255, 255, 0.08) 75%, rgba(255, 255, 255, 0.08));  
+            background-size: 5px 5px, 200px 200px, 150px 150px, 300px 300px, 40px 40px, 40px 40px;
+            background-position: 0 0, 50px 100px, 200px 50px, 300px 200px, 0 0, 20px 20px;
+            color: white;
+            font-family: 'PF Tempesta Seven', sans-serif;
             text-align: center;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh;
-            flex-direction: column;
+            min-height: 100vh;
         }
-        .error-icon img {
-            width: 200px;
-            height: auto;
-            margin-bottom: 20px;
+
+        .site-title {
+            font-size: 50px;
+            font-weight: bold;
+            position: relative;
         }
-        .container {
-            background: #fff;
-            width: 100%;
-            max-width: 400px;
-            padding: 20px;
-            border-radius: 5px;
+
+        .berkay {
+            color: #00FF00;
         }
-        h1 {
-            font-size: 24px;
-            color: #333;
-            margin-bottom: 10px;
+
+        .tv {
+            color: #8000FF;
         }
-        p {
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 20px;
-        }
-        .btn {
+
+        /* GIF üzerine küçük boyut */
+        .gif-container {
+            position: absolute;
+            top: -170px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px; /* Küçük boyut */
+            z-index: 0;
             display: block;
+        }
+
+        .gif-container img {
             width: 100%;
-            background: #007bff;
+        }
+
+        /* Kanal Seçme Menüsü */
+        .channel-menu-container {
+            margin-top: 20px;
+            position: relative;
+        }
+
+        .channel-menu-btn {
+            background-color: #8000FF;
             color: white;
+            font-size: 20px;
+            font-weight: bold;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 0 10px rgba(128, 0, 255, 0.5);
+        }
+
+        .channel-menu-btn:hover {
+            background-color: #00FF00;
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.8);
+            color: #040a40;
+        }
+
+        .channel-dropdown {
+            display: none;
+            position: absolute;
+            top: 45px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #181818;
             padding: 10px;
-            border-radius: 5px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .channel-dropdown button {
+            background-color: #8000FF;
+            color: white;
             font-size: 16px;
             font-weight: bold;
-            text-decoration: none;
             border: none;
+            padding: 10px 20px;
+            border-radius: 7px;
             cursor: pointer;
+            margin: 5px 0;
+            transition: 0.3s;
         }
-        .btn:hover {
-            background: #0056b3;
+
+        .channel-dropdown button:hover {
+            background-color: #00FF00;
+            color: #040a40;
+        }
+
+        /* Kanal İçeriği */
+        .channel-container {
+            width: 90%;
+            max-width: 950px;
+            margin-top: 20px;
+            background-color: #181818;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+            padding: 10px;
+        }
+
+        iframe {
+            width: 100%;
+            height: 300px;
+            border: none;
+            border-radius: 7px;
+            background-color: #8000FF;
+        }
+
+        .channel-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #00FF00;
+        }
+
+        .instagram-container {
+            margin-top: 30px;
+        }
+
+        .instagram-btn {
+            display: flex;
+            align-items: center;
+            background: #00FF00;
+            padding: 12px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 18px;
+            transition: 0.3s;
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+        }
+
+        .instagram-btn img {
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
+        }
+
+        .instagram-btn span {
+            color: #8000FF;
+        }
+
+        .instagram-btn:hover {
+            opacity: 0.8;
         }
     </style>
 </head>
 <body>
-
-    <!-- Şampiyonlar Ligi Müziği -->
-    <audio id="championsMusic">
-        <source src="https://files.catbox.moe/2v5dqr.mp3" type="audio/mpeg">
-        Tarayıcınız ses dosyasını desteklemiyor.
-    </audio>
-
-    <div class="error-icon">
-        <img src="https://i.hizliresim.com/5rg0rmf.png" alt="Hata İkonu">
+    <!-- Başlık ve GIF -->
+    <div class="site-title">
+        <span class="berkay">Berkay</span> <span class="tv">Tv</span>
+        <div class="gif-container">
+            <img src="https://media2.giphy.com/media/5YBhVt6yLGoWxnLkYG/giphy.gif?cid=6c09b952jzxqmxpyzh43m1z40ku1jems5k2nx5vp8a8rk61q&ep=v1_internal_gif_by_id&rid=giphy.gif&ct=s" alt="Yayın GIF">
+        </div>
     </div>
 
-    <div class="container">
-        <h1>Hay Aksi!</h1>
-        <p>Şu anda hizmet veremiyoruz, lütfen daha sonra tekrar deneyiniz.</p>
-        <button class="btn" onclick="startMusic()">Yeniden Deneyin</button>
+    <!-- Kanal Seçme Butonları ve Menü -->
+    <div class="channel-menu-container">
+        <button class="channel-menu-btn" onclick="toggleMenu()">Kanal Seç</button>
+        <div id="channel-dropdown" class="channel-dropdown">
+            <button onclick="changeChannel('bein1')">Bein Sports 1</button>
+            <button onclick="changeChannel('blu1')">Blu TV Play 1</button>
+            <button onclick="changeChannel('blu2')">Blu TV Play 2</button>
+            <button onclick="changeChannel('exxen1')">Exxen Spor 1</button>
+        </div>
+    </div>
+
+    <!-- Kanal İçeriği -->
+    <div id="channel-content" class="channel-container" style="display: none;">
+        <div id="channel-title" class="channel-title"></div>
+        <iframe id="channel-iframe" allowfullscreen></iframe>
+    </div>
+
+    <!-- Instagram Butonu -->
+    <div class="instagram-container">
+        <a href="https://www.instagram.com/turtle.2969298" class="instagram-btn" target="_blank">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram">
+            <span>Beni Takip Et</span>
+        </a>
     </div>
 
     <script>
-        function startMusic() {
-            let audio = document.getElementById("championsMusic");
-            audio.volume = 0.5; // Ses seviyesini %50'ye ayarla
-            audio.play().catch(error => {
-                console.log("Otomatik oynatma engellendi:", error);
-            });
+        // Kanal menüsünü açıp kapat
+        function toggleMenu() {
+            var dropdown = document.getElementById("channel-dropdown");
+            dropdown.style.display = (dropdown.style.display === "block") ? "none" : "block";
+        }
+
+        function changeChannel(channel) {
+            var channelContent = document.getElementById("channel-content");
+            var channelTitle = document.getElementById("channel-title");
+            var channelIframe = document.getElementById("channel-iframe");
+            var gifContainer = document.querySelector('.gif-container');
+
+            if
+(channel === 'bein1') {
+                channelTitle.textContent = "Bein Sports 1";
+                channelIframe.src = "https://misbahistv23.com/channel?id=yayinzirve"; // Örnek Bein Sports 1 yayını
+                gifContainer.style.display = "none"; // GIF'i gizle
+            } else if (channel === 'blu1') {
+                channelTitle.textContent = "Blu TV Play 1";
+                channelIframe.src = "https://15595674c0604ed6.mediapackage.eu-central-1.amazonaws.com/out/v1/dbc93664979b4b6db20d13f0d58f4b07/index.m3u8"; // Örnek Blu TV Play 1 yayını
+                gifContainer.style.display = "none"; // GIF'i gizle
+            } else if (channel === 'blu2') {
+                channelTitle.textContent = "Blu TV Play 2";
+                channelIframe.src = "https://15595674c0604ed6.mediapackage.eu-central-1.amazonaws.com/out/v1/f0134e8bd5cc4964bbdbc12aff9bf27e/index_7.m3u8"; // Örnek Blu TV Play 2 yayını
+                gifContainer.style.display = "none"; // GIF'i gizle
+            } else if (channel === 'exxen1') {
+                channelTitle.textContent = "Exxen Spor 1";
+                channelIframe.src = "https://bcovlive-a.akamaihd.net/88affc2b8d9845d9adb0f4a22db27653/eu-central-1/6415845530001/playlist.m3u8"; // Örnek Exxen Spor 1 yayını
+                gifContainer.style.display = "none"; // GIF'i gizle
+            }
+
+            channelContent.style.display = "block"; // Kanal içeriğini göster
         }
     </script>
-
 </body>
 </html>
