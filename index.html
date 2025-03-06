@@ -11,7 +11,7 @@
         body {
             margin: 0;
             padding: 0;
-            background-color: #040a40; /* Koyu uzay teması */
+            background-color: #040a40;
             color: white;
             font-family: 'PF Tempesta Seven', sans-serif;
             text-align: center;
@@ -25,6 +25,7 @@
         .site-title {
             font-size: 50px;
             font-weight: bold;
+            position: relative;
         }
 
         .berkay {
@@ -35,152 +36,87 @@
             color: #8000FF;
         }
 
-        .gif-container {
-            margin-top: -50px;
-            width: 150px;
-        }
-
-        .gif-container img {
-            width: 100%;
-        }
-
-        .channel-menu-container {
-            margin-top: 20px;
-        }
-
-        .channel-menu-btn {
-            background-color: #8000FF;
-            color: white;
-            font-size: 20px;
-            font-weight: bold;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .channel-menu-btn:hover {
-            background-color: #00FF00;
-            color: #040a40;
-        }
-
-        .channel-dropdown {
-            display: none;
-            position: absolute;
-            background-color: #181818;
-            padding: 10px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-        }
-
-        .channel-dropdown button {
-            background-color: #8000FF;
-            color: white;
-            font-size: 16px;
-            font-weight: bold;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 7px;
-            cursor: pointer;
-            margin: 5px 0;
-            transition: 0.3s;
-        }
-
-        .channel-dropdown button:hover {
-            background-color: #00FF00;
-            color: #040a40;
-        }
-
         .channel-container {
             width: 90%;
             max-width: 950px;
             margin-top: 20px;
             background-color: #181818;
             border-radius: 10px;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
             padding: 10px;
         }
 
         iframe {
             width: 100%;
-            height: 300px;
+            height: 500px;
             border: none;
             border-radius: 7px;
+            background-color: #8000FF;
         }
 
         .channel-title {
-            font-size: 18px;
+            font-size: 20px;
             font-weight: bold;
             margin-bottom: 10px;
             color: #00FF00;
         }
 
-        .ad-container {
-            margin-top: 20px;
-            text-align: center;
+        .instagram-container {
+            margin-top: 30px;
+        }
+
+        .instagram-btn {
+            display: flex;
+            align-items: center;
+            background: #00FF00;
+            padding: 12px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 18px;
+            transition: 0.3s;
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+        }
+
+        .instagram-btn img {
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
+        }
+
+        .instagram-btn span {
+            color: #8000FF;
+        }
+
+        .instagram-btn:hover {
+            opacity: 0.8;
         }
     </style>
 </head>
 <body>
 
+    <!-- Başlık -->
     <div class="site-title">
         <span class="berkay">Berkay</span> <span class="tv">Tv</span>
-        <div class="gif-container">
-            <img src="https://media2.giphy.com/media/5YBhVt6yLGoWxnLkYG/giphy.gif" alt="Yayın GIF">
-        </div>
     </div>
 
-    <div class="channel-menu-container">
-        <button class="channel-menu-btn" onclick="toggleMenu()">Kanal Seç</button>
-        <div id="channel-dropdown" class="channel-dropdown">
-            <button onclick="changeChannel('bein1')">Bein Sports 1</button>
-            <button onclick="changeChannel('blu1')">Blu TV Play 1</button>
-            <button onclick="changeChannel('blu2')">Blu TV Play 2</button>
-            <button onclick="changeChannel('exxen1')">Exxen Spor 1</button>
-        </div>
+    <!-- Otomatik Açılan Bein Sports 1 -->
+    <div class="channel-container">
+        <div class="channel-title">Bein Sports 1</div>
+        <iframe src="https://www.hlsplayer.org/play?url=https%3A%2F%2F217.30.11.74%2Fe%2F6570.m3u8" allowfullscreen></iframe>
     </div>
 
-    <div id="channel-content" class="channel-container" style="display: none;">
-        <div id="channel-title" class="channel-title"></div>
-        <iframe id="channel-iframe" allowfullscreen></iframe>
+    <!-- Instagram Butonu -->
+    <div class="instagram-container">
+        <a href="https://www.instagram.com/turtle.2969298" class="instagram-btn" target="_blank">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram">
+            <span>Beni Takip Et</span>
+        </a>
     </div>
 
-    <!-- Reklam Alanı (Kanal içeriğinden sonra) -->
-    <div class="ad-container">
-        <script async="async" data-cfasync="false" src="//pl26037807.effectiveratecpm.com/a5e8cec58c0837a3d87fe462387b8a4d/invoke.js"></script> 
-        <div id="container-a5e8cec58c0837a3d87fe462387b8a4d"></div>
-    </div>
-
-    <script>
-        function toggleMenu() {
-            var dropdown = document.getElementById("channel-dropdown");
-            dropdown.style.display = (dropdown.style.display === "block") ? "none" : "block";
-        }
-
-        function changeChannel(channel) {
-            var channelContent = document.getElementById("channel-content");
-            var channelTitle = document.getElementById("channel-title");
-            var channelIframe = document.getElementById("channel-iframe");
-            var gifContainer = document.querySelector('.gif-container');
-
-            if (channel === 'bein1') {
-                channelTitle.textContent = "Bein Sports 1";
-                channelIframe.src = "https://www.hlsplayer.org/play?url=https%3A%2F%2F217.30.11.74%2Fe%2F6570.m3u8";
-            } else if (channel === 'blu1') {
-                channelTitle.textContent = "Blu TV Play 1";
-                channelIframe.src = "https://15595674c0604ed6.mediapackage.eu-central-1.amazonaws.com/out/v1/dbc93664979b4b6db20d13f0d58f4b07/index.m3u8";
-            } else if (channel === 'blu2') {
-                channelTitle.textContent = "Blu TV Play 2";
-                channelIframe.src = "https://15595674c0604ed6.mediapackage.eu-central-1.amazonaws.com/out/v1/f0134e8bd5cc4964bbdbc12aff9bf27e/index_7.m3u8";
-            } else if (channel === 'exxen1') {
-                channelTitle.textContent = "Exxen Spor 1";
-                channelIframe.src = "https://bcovlive-a.akamaihd.net/88affc2b8d9845d9adb0f4a22db27653/eu-central-1/6415845530001/playlist.m3u8";
-            }
-
-            gifContainer.style.display = "none";
-            channelContent.style.display = "block";
-        }
-    </script>
+    <!-- Reklam Kodu -->
+    <script async="async" data-cfasync="false" src="//pl26037807.effectiveratecpm.com/a5e8cec58c0837a3d87fe462387b8a4d/invoke.js"></script>
+    <div id="container-a5e8cec58c0837a3d87fe462387b8a4d"></div>
 
 </body>
 </html>
