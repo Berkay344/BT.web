@@ -43,7 +43,7 @@
     .contact {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 20px;
       margin-top: 20px;
     }
     .whatsapp {
@@ -54,7 +54,29 @@
       border-radius: 5px;
       text-decoration: none;
       font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
     }
+    .whatsapp {
+  background-color: #25D366;
+  color: white;
+  padding: 16px 24px;
+  text-align: center;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+.whatsapp img {
+  width: 40px;
+  height: 40px;
+}
     .email-form input,
     .email-form textarea {
       width: 100%;
@@ -93,7 +115,11 @@
   <section>
     <h2>İletişim</h2>
     <div class="contact">
-      <a class="whatsapp" href="https://wa.me/905340188445" target="_blank">WhatsApp ile İletişime Geç</a>
+      <a class="whatsapp" href="https://wa.me/905340188445" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Logo">
+        WhatsApp ile İletişime Geç
+      </a>
+      <div class="email-title">E-posta ile İletişim</div>
       <form class="email-form" action="mailto:berkaytaskan22@gmail.com" method="post" enctype="text/plain">
         <input type="text" name="name" placeholder="Adınız" required>
         <input type="email" name="email" placeholder="E-posta adresiniz" required>
