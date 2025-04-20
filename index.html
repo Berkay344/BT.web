@@ -1,132 +1,260 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BT Web Creations</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ghost İnternet Servis</title>
   <style>
     body {
       margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #040842;
-      color: #001f3f;
+      font-family: Arial, sans-serif;
+      background-color: #000;
+      color: #fff;
     }
+
     header {
-      background-color: #040842;
-      padding: 30px 0;
+      background-color: #111;
+      padding: 20px;
       text-align: center;
+      border-bottom: 2px solid #0f0;
+      margin-top: 40px; /* Başlığı biraz aşağı taşıdık */
     }
-    header img {
-      width: 180px;
-      height: auto;
+
+    h1 {
+      color: #0f0;
+      margin: 0;
     }
-    section {
-      max-width: 800px;
-      margin: 40px auto;
-      padding: 30px;
-      background-color: white;
-      border-radius: 10px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+
+    .marquee {
+      overflow: hidden;
+      white-space: nowrap;
+      box-sizing: border-box;
+      margin-top: 10px;
     }
-    h2 {
-      color: #001f3f;
-      margin-bottom: 15px;
+
+    .marquee p {
+      display: inline-block;
+      padding-left: 100%;
+      animation: scrollText 15s linear infinite;
+      color: #fff;
+      margin: 0;
     }
-    p {
-      line-height: 1.6;
+
+    @keyframes scrollText {
+      0% {
+        transform: translateX(-100%);
+      }
+      100% {
+        transform: translateX(100%);
+      }
     }
-    .slogan {
-      font-weight: bold;
-      margin-top: 20px;
-      color: #001f3f;
+
+    h2.section-title {
+      text-align: center;
+      color: #0f0;
+      margin-top: 40px;
     }
-    .contact {
-      display: flex;
-      flex-direction: column;
+
+    .product-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 20px;
-      margin-top: 20px;
+      padding: 20px;
     }
+
+    .product {
+      background-color: #111;
+      border: 1px solid #0f0;
+      border-radius: 10px;
+      padding: 15px;
+      text-align: center;
+      transition: 0.3s;
+    }
+
+    .product:hover {
+      background-color: #0f0;
+      color: #000;
+    }
+
+    .product h3 {
+      margin: 0 0 10px 0;
+    }
+
+    .product p {
+      margin: 0;
+    }
+
+    .product .price {
+      color: #f00;
+      font-size: 18px;
+      margin-top: 10px;
+    }
+
+    .warning {
+      color: black;
+      font-size: 13px;
+      margin-top: 5px;
+    }
+
     .whatsapp {
+      text-align: center;
+      margin: 30px 0;
+    }
+
+    .whatsapp a {
       background-color: #25D366;
       color: white;
-      padding: 12px;
-      text-align: center;
+      padding: 12px 20px;
       border-radius: 5px;
       text-decoration: none;
       font-weight: bold;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
+      display: inline-block;
+      text-align: center;
     }
-    .whatsapp {
-  background-color: #25D366;
-  color: white;
-  padding: 16px 24px;
-  text-align: center;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-}
-.whatsapp img {
-  width: 40px;
-  height: 40px;
-}
-    .email-form input,
-    .email-form textarea {
-      width: 100%;
-      padding: 12px;
-      margin-bottom: 10px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
+
+    .whatsapp img {
+      width: 40px;
+      height: 40px;
+      margin-right: 8px;
+      vertical-align: middle;
     }
-    .email-form button {
-      background-color: #001f3f;
+
+    .whatsapp p {
+      margin-top: 10px;
+    }
+
+    /* Yeni mor renkli kart stili */
+    .info-card {
+      background-color: #800080;
       color: white;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-    .email-form button:hover {
-      background-color: #003366;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      margin-top: 20px;
     }
   </style>
 </head>
 <body>
   <header>
-    <img src="https://i.hizliresim.com/s1y272h.png" alt="BT Web Creations Logo">
+    <h1> ×͜× Ghost İnternet Servis</h1>
+    <div class="marquee">
+      <p>En hızlı, en güvenli internet çözümleri</p>
+    </div>
   </header>
 
-  <section>
-    <h2>Hakkımızda</h2>
-    <p>
-      Modern, kullanıcı dostu ve kurumsal kimliğinizi en iyi şekilde yansıtan web siteleri tasarlıyorum. Her projede işin doğasına özel yaklaşımlar geliştirerek, sadece görsel olarak değil; işlevsel ve stratejik açıdan da güçlü çözümler sunuyorum. İster bireysel bir portfolyo, ister büyük bir işletme olun; ihtiyaçlarınıza göre özelleştirilmiş web çözümleri ile yanınızdayım. Güvenilir altyapı, sade ve etkileyici tasarım anlayışıyla dijital dünyada markanızı bir adım öne taşıyorum.
-    </p>
-    <p class="slogan">Web Siteniz, Kurumsal Gücünüzdür</p>
-  </section>
+  <h2 class="section-title">Crack Hesaplar</h2>
 
-  <section>
-    <h2>İletişim</h2>
-    <div class="contact">
-      <a class="whatsapp" href="https://wa.me/447442525362" target="_blank">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Logo">
-        WhatsApp ile İletişime Geç
-      </a>
-      <div class="email-title">E-posta ile İletişim</div>
-      <form class="email-form" action="mailto:berkaytaskan22@gmail.com" method="post" enctype="text/plain">
-        <input type="text" name="name" placeholder="Adınız" required>
-        <input type="email" name="email" placeholder="E-posta adresiniz" required>
-        <textarea name="message" placeholder="Mesajınız" rows="5" required></textarea>
-        <button type="submit">Gönder</button>
-      </form>
+  <!-- Mor renkli kart -->
+  <div class="info-card">
+    <p>Satın almak istediğiniz hizmetin ekran görüntüsünü WhatsApp'tan bana iletin</p>
+  </div>
+
+  <section class="product-list">
+    <div class="product" onclick="showPrice('Netflix')">
+      <h3>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" alt="Netflix" style="width:40px; vertical-align:middle; margin-right:8px;">
+        Netflix
+      </h3>
+      <p>Premium hesap</p>
+      <p class="price" id="price-Netflix" style="display: none;">Fiyat: 120 ₺</p>
+    </div>
+    <div class="product" onclick="showPrice('Exxen')">
+      <h3>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbh3g4EIrcm2-FyXDObX35X3bzd23pXFuB_QpwSSiKvw&salt"="Exxen" style="width:40px; vertical-align:middle; margin-right:8px;">
+        Exxen
+      </h3>
+      <p>Spor ve dizi içerikleriyle</p>
+      <p class="price" id="price-Exxen" style="display: none;">Fiyat: 80 ₺</p>
+    </div>
+    <div class="product" onclick="showPrice('BluTV')">
+      <h3>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmZZYVUsJxy8crhd9gN4m5INs6y26Ko41j6XTvZjTG0A&s" alt="BluTV" style="width:40px; vertical-align:middle; margin-right:8px;">
+        BluTV
+      </h3>
+      <p>Tüm içeriklere erişim</p>
+      <p class="price" id="price-BluTV" style="display: none;">Fiyat: 150 ₺</p>
     </div>
   </section>
+
+  <h2 class="section-title">Sorgu Hizmetleri</h2>
+  <section class="product-list">
+    <div class="product" onclick="showPrice('GSM')">
+      <h3>GSM Sorgulama</h3>
+      <p>Telefon numarasına ait bilgiler</p>
+      <p class="price" id="price-GSM" style="display: none;">
+        Fiyat: 150 ₺<br>
+        <span class="warning">GSM dataları 2022 ve öncesine aittir. Tüm Türkiye çıkmaz, başarı oranı %70'tir.</span>
+      </p>
+    </div>
+    <div class="product" onclick="showPrice('IsimSoyisim')">
+      <h3>İsim Soyisim Sorgulama</h3>
+      <p>Kişiye ait tüm kimlik bilgileri ve aile üyeleri</p>
+      <p class="price" id="price-IsimSoyisim" style="display: none;">Fiyat: 350 ₺</p>
+    </div>
+    <div class="product" onclick="showPrice('Adres')">
+      <h3>Adres Sorgulama</h3>
+      <p>Kişinin güncel ev adresi</p>
+      <p class="price" id="price-Adres" style="display: none;">Fiyat: 100 ₺</p>
+    </div>
+  </section>
+
+  <h2 class="section-title">Spam SMS Atma</h2>
+  <section class="product-list">
+    <div class="product" onclick="showPrice('SpamSMS')">
+      <h3>Spam SMS Atma</h3>
+      <p>Verilen GSM numarasına BİM, A101 gibi firmalardan yoğun şekilde doğrulama kodları gönderilerek kişi ciddi şekilde rahatsız edilir.</p>
+      <p class="price" id="price-SpamSMS" style="display: none;">Fiyat: Fiyat için WhatsApp'tan ulaşın</p>
+    </div>
+  </section>
+
+  <h2 class="section-title">Sosyal Medya Hizmetleri</h2>
+  <section class="product-list">
+    <div class="product" onclick="showPrice('InstagramLike')">
+      <h3><img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram" style="width:40px; vertical-align:middle; margin-right:8px;">İnstagram Beğeni</h3>
+      <p>İnstagram beğeni artırma hizmeti</p>
+      <p class="price" id="price-InstagramLike" style="display: none;">Fiyat: 100 Beğeni : 20 ₺</p>
+    </div>
+    <div class="product" onclick="showPrice('InstagramFollowers')">
+      <h3><img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram" style="width:40px; vertical-align:middle; margin-right:8px;">İnstagram Takipçi</h3>
+      <p>İnstagram takipçi artırma hizmeti</p>
+      <p class="price" id="price-InstagramFollowers" style="display: none;">Fiyat: 100 Takipçi : 100 ₺ </p>
+    </div>
+    <div class="product" onclick="showPrice('TikTokLike')">
+      <h3><img src="https://i1.sndcdn.com/artworks-xZU4PPCNdr0WqGiC-eVXRwQ-t500x500.jpg" alt="TikTok" style="width:40px; vertical-align:middle; margin-right:8px;">TikTok Beğeni</h3>
+      <p>TikTok beğeni artırma hizmeti</p>
+      <p class="price" id="price-TikTokLike" style="display: none;">Fiyat: 100 Beğeni : 20 ₺</p>
+    </div>
+    <div class="product" onclick="showPrice('TikTokFollowers')">
+      <h3><img src="https://i1.sndcdn.com/artworks-xZU4PPCNdr0WqGiC-eVXRwQ-t500x500.jpg" alt="TikTok" style="width:40px; vertical-align:middle; margin-right:8px;">TikTok Takipçi</h3>
+      <p>TikTok takipçi artırma hizmeti</p>
+      <p class="price" id="price-TikTokFollowers" style="display: none;">Fiyat: 100 Takipçi : 100 ₺</p>
+    </div>
+  </section>
+
+  <h2 class="section-title">Web Tasarım</h2>
+  <section class="product-list">
+    <div class="product" onclick="showPrice('WebDesign')">
+      <h3>Kurumsal / Özel Web Siteleri</h3>
+      <p>Kişilere veya şirketlere özel tasarımlar</p>
+      <p class="price" id="price-WebDesign" style="display: none;">Fiyat: Fiyat için WhatsApp'tan ulaşın</p>
+    </div>
+  </section>
+  <div class="whatsapp">
+    <a href="https://wa.me/447442525362" target="_blank">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Logo"> Bana burdan ulaşabilirsiniz 
+    </a>
+    <p>Tüm Hakları Saklıdır 2025©</p>
+  </div>
+
+  <script>
+    function showPrice(product) {
+      const priceElement = document.getElementById(`price-${product}`);
+      if (priceElement.style.display === 'none') {
+        priceElement.style.display = 'block';
+      } else {
+        priceElement.style.display = 'none';
+      }
+    }
+  </script>
 </body>
 </html>
