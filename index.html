@@ -1,1 +1,245 @@
+ <!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ödeme Sayfası</title>
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/888/888879.png" type="image/png">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <style>
+    :root {
+      --bg-color: #8FD6EF;
+      --container-color: ##128aa6;
+      --text-color: #1a1a1a;
+      --input-bg: #f0f4f8;
+      --box-color: #eaf3fa;
+      --accent: #3399ff;
+      --button-hover: #007acc;
+      --footer-color: #666;
+    }
 
+    * {
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background: var(--bg-color);
+      color: var(--text-color);
+      margin: 0;
+    }
+
+    .container {
+      max-width: 540px;
+      margin: 30px auto;
+      background: var(--container-color);
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    h2 {
+      text-align: center;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+
+    .payment-methods {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin: 25px 0;
+    }
+
+    .payment-method {
+      text-align: center;
+      width: 140px;
+    }
+
+    .payment-method img {
+      width: 120px;
+      height: 80px;
+      object-fit: contain;
+      padding: 6px;
+      border-radius: 10px;
+      background: var(--box-color);
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: 0.3s;
+      display: block;
+      margin: 0 auto;
+    }
+
+    .payment-method img.selected {
+      border-color: var(--accent);
+      background-color: #d6eefd;
+      box-shadow: 0 0 6px rgba(0, 128, 255, 0.3);
+    }
+
+    .payment-method span {
+      margin-top: 8px;
+      font-size: 13px;
+      color: var(--footer-color);
+      display: block;
+      text-align: center;
+    }
+
+    .payment-info {
+      display: none;
+      margin-top: 20px;
+    }
+
+    .payment-info p {
+      background: var(--box-color);
+      padding: 10px;
+      border-radius: 6px;
+      margin: 10px 0;
+      position: relative;
+    }
+
+    .copy-btn {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+      background: none;
+      border: none;
+      color: var(--accent);
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    input[type="tel"] {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background: var(--input-bg);
+      color: var(--text-color);
+    }
+
+    .button {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      background: var(--accent);
+      color: #fff;
+      font-weight: bold;
+      border-radius: 10px;
+      margin-top: 20px;
+      text-align: center;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .button:hover {
+      background: var(--button-hover);
+    }
+
+    footer {
+      text-align: center;
+      font-size: 13px;
+      margin-top: 40px;
+      color: var(--footer-color);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Ödeme Yöntemi Seçin</h2>
+
+    <div class="payment-methods">
+      <div class="payment-method">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/69/Ziraat_Bankas%C4%B1_logo.png" onclick="selectMethod('Ziraat', this)">
+        <span>Ziraat - IBAN</span>
+      </div>
+      <div class="payment-method">
+        <img src="https://upload.wikimedia.org/wikipedia/tr/7/75/Garanti_BBVA.png" onclick="selectMethod('Garanti', this)">
+        <span>Garanti - IBAN</span>
+      </div>
+      <div class="payment-method">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/c/c0/PAPARA.png" onclick="selectMethod('Papara', this)">
+        <span>Papara No</span>
+      </div>
+    </div>
+
+    <div class="payment-info" id="paymentInfo">
+      <p><strong>Ad Soyad:</strong> <span id="ownerName">Berkay Taşkan</span>
+        <button class="copy-btn" onclick="copyText('ownerName')">⎗</button>
+      </p>
+      <p><strong id="ibanLabel">IBAN:</strong> <span id="ibanInfo"></span>
+        <button class="copy-btn" onclick="copyText('ibanInfo')">⎗</button>
+      </p>
+      <input type="tel" id="amount" placeholder="₺ Ödeme tutarı girin (örnek: 50)">
+      <a class="button" onclick="confirmPayment()">✓ Ödeme Yaptım</a>
+    </div>
+  </div>
+
+  <footer>&copy; 2025 Tüm Hakları Saklıdır.</footer>
+
+  <script>
+    const info = {
+      Ziraat: { name: "Berkay Taşkan", iban: "TR03 0001 0090 1019 7947 4050 01" },
+      Garanti: { name: "Berkay Taşkan", iban: "TR36 0006 2000 0530 0006 8912 70" },
+      Papara: { name: "Berkay Taşkan", iban: "1875239794" }
+    };
+    let selected = "";
+
+    function selectMethod(method, element) {
+      selected = method;
+      document.getElementById("ownerName").textContent = info[method].name;
+      document.getElementById("ibanInfo").textContent = info[method].iban;
+      document.getElementById("ibanLabel").textContent = method === "Papara" ? "Papara No:" : "IBAN:";
+      document.getElementById("paymentInfo").style.display = "block";
+      document.querySelectorAll(".payment-method img").forEach(el => el.classList.remove("selected"));
+      element.classList.add("selected");
+    }
+
+    function copyText(id) {
+      const text = document.getElementById(id).textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Kopyalandı',
+          text: `"${text}" panoya kopyalandı.`,
+          showConfirmButton: false,
+          timer: 1500
+        });
+      });
+    }
+
+    function confirmPayment() {
+      const amount = document.getElementById("amount").value;
+      if (!amount || !selected) {
+        Swal.fire({
+          icon: 'warning',
+          title: 'Eksik bilgi',
+          text: 'Lütfen yöntem seçin ve tutar girin.',
+          confirmButtonText: 'Tamam'
+        });
+        return;
+      }
+
+      Swal.fire({
+        title: 'Ödeme Yapılıyor...',
+        text: 'WhatsApp\'a yönlendiriliyorsunuz.',
+        icon: 'info',
+        showConfirmButton: false,
+        timer: 1000
+      });
+
+      const name = info[selected].name;
+      const iban = info[selected].iban;
+      const label = selected === "Papara" ? "Papara No" : "IBAN";
+      const message = `Merhaba, ödeme yaptım.%0AAd Soyad: ${name}%0A${label}: ${iban}%0ATutar: ${amount}₺%0AÖdeme Yöntemi: ${selected}`;
+      setTimeout(() => {
+        window.location.href = `https://wa.me/447442525362?text=${message}`;
+      }, 1000);
+    }
+  </script>
+
+</body>
+</html>
