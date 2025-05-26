@@ -1,190 +1,287 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ödeme Sayfası</title>
-  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/888/888879.png" type="image/png">
+  <title>Ödeme Yöntemi Seçin</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <style>
     :root {
-      --bg-color: #8FD6EF;
-      --container-color: ##128aa6;
-      --text-color: #1a1a1a;
-      --input-bg: #f0f4f8;
-      --box-color: #eaf3fa;
-      --accent: #3399ff;
-      --button-hover: #007acc;
-      --footer-color: #666;
+      --bg-main: #181e2a;
+      --card-bg: #22283a;
+      --card-border: #293049;
+      --box-bg: #26304a;
+      --input-bg: #202535;
+      --text-main: #f2f4fa;
+      --text-sec: #8c98b5;
+      --accent: #3880ff;
+      --shadow: 0 8px 32px #0108131e, 0 1.5px 4px #181e2a22;
     }
-
-    * {
-      box-sizing: border-box;
-      font-family: 'Inter', sans-serif;
-    }
-
     body {
-      background: var(--bg-color);
-      color: var(--text-color);
+      background: var(--bg-main);
+      color: var(--text-main);
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
       margin: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
-
     .container {
-      max-width: 540px;
-      margin: 30px auto;
-      background: var(--container-color);
-      padding: 30px;
-      border-radius: 20px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+      max-width: 400px;
+      margin: 48px auto 0 auto;
+      background: var(--card-bg);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      padding: 34px 20px 24px 20px;
+      border: 1.5px solid var(--card-border);
     }
-
-    h2 {
-      text-align: center;
-      color: var(--accent);
-      margin-bottom: 20px;
-    }
-
-    .payment-methods {
+    .icon-top {
       display: flex;
       justify-content: center;
-      gap: 20px;
-      flex-wrap: wrap;
-      margin: 25px 0;
+      align-items: center;
+      margin-bottom: 8px;
     }
-
-    .payment-method {
-      text-align: center;
-      width: 140px;
-    }
-
-    .payment-method img {
-      width: 120px;
-      height: 80px;
-      object-fit: contain;
-      padding: 6px;
-      border-radius: 10px;
-      background: var(--box-color);
-      border: 2px solid transparent;
-      cursor: pointer;
-      transition: 0.3s;
+    .icon-top svg {
+      width: 44px;
+      height: 44px;
+      fill: var(--accent);
       display: block;
       margin: 0 auto;
     }
-
-    .payment-method img.selected {
-      border-color: var(--accent);
-      background-color: #d6eefd;
-      box-shadow: 0 0 6px rgba(0, 128, 255, 0.3);
-    }
-
-    .payment-method span {
-      margin-top: 8px;
-      font-size: 13px;
-      color: var(--footer-color);
-      display: block;
+    h2 {
       text-align: center;
+      color: var(--text-main);
+      margin-bottom: 24px;
+      margin-top: 0;
+      font-weight: 600;
+      font-size: 1.3rem;
+      letter-spacing: .2px;
     }
-
+    .payment-methods {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 18px;
+      margin-bottom: 20px;
+    }
+    .payment-method {
+      background: var(--box-bg);
+      border-radius: 14px;
+      width: 120px;
+      text-align: center;
+      padding: 13px 0 10px 0;
+      cursor: pointer;
+      border: 2.2px solid transparent;
+      box-shadow: 0 2px 12px #141c2c2a;
+      transition: border-color .18s, box-shadow .18s, background .15s;
+    }
+    .payment-method.selected {
+      border-color: var(--accent);
+      background: #182343;
+      box-shadow: 0 4px 20px #387fff22;
+    }
+    .payment-method img {
+      height: 34px;
+      margin-bottom: 6px;
+      filter: grayscale(0.15);
+    }
+    .payment-method.selected img {
+      filter: none;
+    }
+    .payment-method span {
+      display: block;
+      margin-top: 2px;
+      font-size: 13px;
+      color: var(--text-sec);
+      letter-spacing: .1px;
+    }
     .payment-info {
       display: none;
-      margin-top: 20px;
+      background: var(--box-bg);
+      padding: 20px 14px 12px 14px;
+      border-radius: 14px;
+      margin-top: 18px;
+      box-shadow: 0 1px 9px #10182728;
     }
-
-    .payment-info p {
-      background: var(--box-color);
-      padding: 10px;
-      border-radius: 6px;
-      margin: 10px 0;
+    .payment-info-title {
+      color: var(--accent);
+      font-weight: 600;
+      font-size: 1.1rem;
+      margin-bottom: 18px;
+      text-align: left;
+    }
+    .info-field {
+      margin-bottom: 11px;
+      display: flex;
+      align-items: center;
+      background: var(--input-bg);
+      border-radius: 7px;
+      padding: 10px 10px 10px 11px;
       position: relative;
+      min-height: 40px;
     }
+    .info-label {
+      flex: 0 0 85px;
+      color: var(--text-sec);
+      font-size: 14px;
+      font-weight: 400;
+    }
+    .info-value {
+      flex: 1;
+      color: var(--text-main);
+      font-size: 15px;
+      font-weight: 500;
+      word-break: break-all;
+      /* Diğer alanlar için */
+    }
+    /* IBAN tek satır ve kaydırmalı */
+    .iban-value {
+  display: block;
+  white-space: normal;   /* nowrap'ı kaldırdık! */
+  overflow-x: visible;   /* otomatik taşma yok */
+  word-break: break-all; /* uzun IBAN satırdan taşarsa otomatik böler */
+  font-size: 16px;
+  max-width: 100%;
+}
 
+@media (max-width: 500px) {
+  .iban-value {
+    font-size: 16px;
+    max-width: 100%;
+  }
+}
     .copy-btn {
-      position: absolute;
-      right: 10px;
-      top: 10px;
       background: none;
       border: none;
       color: var(--accent);
       font-size: 18px;
       cursor: pointer;
+      margin-left: 7px;
+      transition: color 0.2s;
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      padding: 2px 2px;
     }
-
-    input[type="tel"] {
+    .copy-btn:hover { color: #387fff; }
+    .input-area {
       width: 100%;
-      padding: 12px;
-      font-size: 16px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      background: var(--input-bg);
-      color: var(--text-color);
+      margin-bottom: 13px;
+      margin-top: 6px;
     }
-
+    .input-area input {
+      width: 100%;
+      background: var(--input-bg);
+      color: var(--text-main);
+      border: 1.5px solid #232c3b;
+      border-radius: 8px;
+      padding: 13px 12px;
+      font-size: 15px;
+      margin-top: 2px;
+      font-weight: 500;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .input-area input:focus {
+      border-color: var(--accent);
+    }
     .button {
-      display: block;
       width: 100%;
       padding: 14px;
       background: var(--accent);
       color: #fff;
-      font-weight: bold;
-      border-radius: 10px;
-      margin-top: 20px;
-      text-align: center;
-      text-decoration: none;
-      transition: 0.3s;
+      font-weight: 700;
+      border: none;
+      border-radius: 9px;
+      margin-top: 7px;
+      font-size: 16px;
+      letter-spacing: 0.1px;
+      box-shadow: 0 2px 8px #387fff33;
+      cursor: pointer;
+      transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
     }
-
     .button:hover {
-      background: var(--button-hover);
+      background: #2c63c8;
+      transform: scale(1.02);
     }
-
     footer {
       text-align: center;
-      font-size: 13px;
-      margin-top: 40px;
-      color: var(--footer-color);
+      font-size: 14px;
+      color: var(--text-sec);
+      margin: 38px 0 13px 0;
+      font-weight: 500;
+    }
+    @media (max-width: 500px) {
+      .container { 
+        max-width: 97vw;
+        padding: 19px 3vw 18px 3vw;
+        margin: 20px auto 0 auto;
+      }
+      .payment-method { width: 44vw; min-width: 110px; }
+      .payment-methods { gap: 13px;}
+      .iban-value { max-width: 110px;}
     }
   </style>
 </head>
 <body>
-
   <div class="container">
+    <div class="icon-top">
+      <svg viewBox="0 0 40 40"><rect x="4" y="9" width="32" height="22" rx="4" fill="currentColor" opacity="0.12"/><rect x="4" y="9" width="32" height="22" rx="4" fill="none" stroke="currentColor" stroke-width="2"/><rect x="6" y="17" width="28" height="3" rx="1.5" fill="currentColor"/><rect x="8" y="25" width="7" height="2.2" rx="1.1" fill="currentColor" opacity="0.18"/></svg>
+    </div>
     <h2>Ödeme Yöntemi Seçin</h2>
-
     <div class="payment-methods">
-      <div class="payment-method">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/69/Ziraat_Bankas%C4%B1_logo.png" onclick="selectMethod('Ziraat', this)">
+      <div class="payment-method" onclick="selectMethod('Ziraat', this)">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/69/Ziraat_Bankas%C4%B1_logo.png" alt="Ziraat" style="height:32px;">
         <span>Ziraat - IBAN</span>
       </div>
-      <div class="payment-method">
-        <img src="https://upload.wikimedia.org/wikipedia/tr/7/75/Garanti_BBVA.png" onclick="selectMethod('Garanti', this)">
+      <div class="payment-method" onclick="selectMethod('Garanti', this)">
+        <img src="https://upload.wikimedia.org/wikipedia/tr/7/75/Garanti_BBVA.png" alt="Garanti" style="height:32px;">
         <span>Garanti - IBAN</span>
       </div>
-      <div class="payment-method">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/c/c0/PAPARA.png" onclick="selectMethod('Papara', this)">
+      <div class="payment-method" onclick="selectMethod('Papara', this)">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/c/c0/PAPARA.png" alt="Papara" style="height:30px;">
         <span>Papara No</span>
       </div>
     </div>
-
     <div class="payment-info" id="paymentInfo">
-      <p><strong>Ad Soyad:</strong> <span id="ownerName">Berkay Taşkan</span>
-        <button class="copy-btn" onclick="copyText('ownerName')">⎗</button>
-      </p>
-      <p><strong id="ibanLabel">IBAN:</strong> <span id="ibanInfo"></span>
-        <button class="copy-btn" onclick="copyText('ibanInfo')">⎗</button>
-      </p>
-      <input type="tel" id="amount" placeholder="₺ Ödeme tutarı girin (örnek: 50)">
-      <a class="button" onclick="confirmPayment()">✓ Ödeme Yaptım</a>
+      <div class="payment-info-title" id="bankTitle"></div>
+      <div class="info-field">
+        <span class="info-label">Ad Soyad:</span>
+        <span class="info-value" id="ownerName">Berkay Taşkan</span>
+        <button class="copy-btn" onclick="copyText('ownerName')" title="Kopyala">Kopyala</button>
+      </div>
+      <div class="info-field">
+        <span class="info-label" id="ibanLabel">IBAN:</span>
+        <span class="info-value iban-value" id="ibanInfo"></span>
+        <button class="copy-btn" onclick="copyText('ibanInfo')" title="Kopyala">Kopyala</button>
+      </div>
+      <div class="input-area">
+        <input type="tel" id="amount" placeholder="₺ Tutar">
+      </div>
+      <button class="button" onclick="confirmPayment()">Ödemeyi Bildirin</button>
     </div>
   </div>
-
-  <footer>&copy; 2025 Tüm Hakları Saklıdır.</footer>
-
+  <footer>Güvenli ödeme sistemi &copy; 2025</footer>
   <script>
     const info = {
-      Ziraat: { name: "Berkay Taşkan", iban: "TR03 0001 0090 1019 7947 4050 01" },
-      Garanti: { name: "Berkay Taşkan", iban: "TR36 0006 2000 0530 0006 8912 70" },
-      Papara: { name: "Berkay Taşkan", iban: "1875239794" }
+      Ziraat: { 
+        name: "Berkay Taşkan", 
+        iban: "TR03 0001 0090 1019 7947 4050 01", 
+        title: "Ziraat Bankası Hesap Bilgileri" 
+      },
+      Garanti: { 
+        name: "Berkay Taşkan", 
+        iban: "TR36 0006 2000 0530 0006 8912 70", 
+        title: "Garanti BBVA Hesap Bilgileri" 
+      },
+      Papara: { 
+        name: "Berkay Taşkan", 
+        iban: "1875239794", 
+        title: "Papara Hesap Bilgileri"
+      }
     };
     let selected = "";
 
@@ -193,8 +290,9 @@
       document.getElementById("ownerName").textContent = info[method].name;
       document.getElementById("ibanInfo").textContent = info[method].iban;
       document.getElementById("ibanLabel").textContent = method === "Papara" ? "Papara No:" : "IBAN:";
+      document.getElementById("bankTitle").textContent = info[method].title;
       document.getElementById("paymentInfo").style.display = "block";
-      document.querySelectorAll(".payment-method img").forEach(el => el.classList.remove("selected"));
+      document.querySelectorAll(".payment-method").forEach(el => el.classList.remove("selected"));
       element.classList.add("selected");
     }
 
@@ -206,7 +304,7 @@
           title: 'Kopyalandı',
           text: `"${text}" panoya kopyalandı.`,
           showConfirmButton: false,
-          timer: 1500
+          timer: 1200
         });
       });
     }
@@ -224,11 +322,11 @@
       }
 
       Swal.fire({
-        title: 'Ödeme Yapılıyor...',
+        title: 'Ödeme Bildiriliyor...',
         text: 'WhatsApp\'a yönlendiriliyorsunuz.',
         icon: 'info',
         showConfirmButton: false,
-        timer: 1000
+        timer: 950
       });
 
       const name = info[selected].name;
@@ -237,9 +335,8 @@
       const message = `Merhaba, ödeme yaptım.%0AAd Soyad: ${name}%0A${label}: ${iban}%0ATutar: ${amount}₺%0AÖdeme Yöntemi: ${selected}`;
       setTimeout(() => {
         window.location.href = `https://wa.me/447442525362?text=${message}`;
-      }, 1000);
+      }, 950);
     }
   </script>
-
 </body>
 </html>
