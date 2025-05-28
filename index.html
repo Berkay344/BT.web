@@ -2,341 +2,371 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
+  <title>ESOS Fastfood Sipariş</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ödeme Yöntemi Seçin</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <!-- SweetAlert2 -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --bg-main: #181e2a;
-      --card-bg: #22283a;
-      --card-border: #293049;
-      --box-bg: #26304a;
-      --input-bg: #202535;
-      --text-main: #f2f4fa;
-      --text-sec: #8c98b5;
-      --accent: #3880ff;
-      --shadow: 0 8px 32px #0108131e, 0 1.5px 4px #181e2a22;
-    }
-    body {
-      background: var(--bg-main);
-      color: var(--text-main);
-      font-family: 'Inter', sans-serif;
-      min-height: 100vh;
+    * {
+      box-sizing: border-box;
       margin: 0;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+      padding: 0;
     }
-    .container {
-      max-width: 400px;
-      margin: 48px auto 0 auto;
-      background: var(--card-bg);
-      border-radius: 24px;
-      box-shadow: var(--shadow);
-      padding: 34px 20px 24px 20px;
-      border: 1.5px solid var(--card-border);
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f8f9fa;
+      color: #333;
     }
-    .icon-top {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-bottom: 8px;
-    }
-    .icon-top svg {
-      width: 44px;
-      height: 44px;
-      fill: var(--accent);
-      display: block;
-      margin: 0 auto;
-    }
-    h2 {
-      text-align: center;
-      color: var(--text-main);
-      margin-bottom: 24px;
-      margin-top: 0;
+
+    .navbar {
+      background-color: #e53935;
+      padding: 15px 20px;
+      color: white;
+      font-size: 18px;
       font-weight: 600;
-      font-size: 1.3rem;
-      letter-spacing: .2px;
-    }
-    .payment-methods {
       display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 18px;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .navbar i {
+      font-size: 22px;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 30px auto;
+      background: #fff;
+      border-radius: 12px;
+      padding: 25px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+
+    .logo {
+      text-align: center;
       margin-bottom: 20px;
     }
-    .payment-method {
-      background: var(--box-bg);
-      border-radius: 14px;
-      width: 120px;
+
+    .logo img {
+      max-width: 150px;
+    }
+
+    h1 {
       text-align: center;
-      padding: 13px 0 10px 0;
-      cursor: pointer;
-      border: 2.2px solid transparent;
-      box-shadow: 0 2px 12px #141c2c2a;
-      transition: border-color .18s, box-shadow .18s, background .15s;
+      font-size: 20px;
+      color: #e53935;
+      margin-bottom: 20px;
     }
-    .payment-method.selected {
-      border-color: var(--accent);
-      background: #182343;
-      box-shadow: 0 4px 20px #387fff22;
+
+    .form-group {
+      margin-bottom: 20px;
     }
-    .payment-method img {
-      height: 34px;
-      margin-bottom: 6px;
-      filter: grayscale(0.15);
-    }
-    .payment-method.selected img {
-      filter: none;
-    }
-    .payment-method span {
+
+    label {
       display: block;
-      margin-top: 2px;
-      font-size: 13px;
-      color: var(--text-sec);
-      letter-spacing: .1px;
-    }
-    .payment-info {
-      display: none;
-      background: var(--box-bg);
-      padding: 20px 14px 12px 14px;
-      border-radius: 14px;
-      margin-top: 18px;
-      box-shadow: 0 1px 9px #10182728;
-    }
-    .payment-info-title {
-      color: var(--accent);
       font-weight: 600;
-      font-size: 1.1rem;
-      margin-bottom: 18px;
-      text-align: left;
+      margin-bottom: 6px;
     }
-    .info-field {
-      margin-bottom: 11px;
+
+    .form-group i {
+      margin-right: 8px;
+      color: #e53935;
+    }
+
+    input[type="text"],
+    input[type="number"] {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background-color: #f9f9f9;
+      font-size: 15px;
+      transition: 0.3s;
+    }
+
+    input:focus {
+      outline: none;
+      background-color: #fff;
+      border-color: #e53935;
+    }
+
+    button {
+      width: 100%;
+      background-color: #e53935;
+      color: white;
+      padding: 14px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    button:hover {
+      background-color: #c62828;
+    }
+
+    button::after {
+      content: "";
+      position: absolute;
+      background: rgba(255,255,255,0.3);
+      border-radius: 50%;
+      transform: scale(0);
+      animation: ripple 0.6s linear;
+    }
+
+    @keyframes ripple {
+      to {
+        transform: scale(4);
+        opacity: 0;
+      }
+    }
+
+    button:active::after {
+      width: 100px;
+      height: 100px;
+      top: var(--y);
+      left: var(--x);
+    }
+
+    .menu-item {
+      background-color: #f3f4f6;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #e1e1e1;
+      margin-bottom: 10px;
       display: flex;
       align-items: center;
-      background: var(--input-bg);
-      border-radius: 7px;
-      padding: 10px 10px 10px 11px;
-      position: relative;
-      min-height: 40px;
+      justify-content: space-between;
     }
-    .info-label {
-      flex: 0 0 85px;
-      color: var(--text-sec);
-      font-size: 14px;
-      font-weight: 400;
-    }
-    .info-value {
-      flex: 1;
-      color: var(--text-main);
-      font-size: 15px;
-      font-weight: 500;
-      word-break: break-all;
-      /* Diğer alanlar için */
-    }
-    /* IBAN tek satır ve kaydırmalı */
-    .iban-value {
-  display: block;
-  white-space: normal;   /* nowrap'ı kaldırdık! */
-  overflow-x: visible;   /* otomatik taşma yok */
-  word-break: break-all; /* uzun IBAN satırdan taşarsa otomatik böler */
-  font-size: 16px;
-  max-width: 100%;
-}
 
-@media (max-width: 500px) {
-  .iban-value {
-    font-size: 16px;
-    max-width: 100%;
-  }
-}
-    .copy-btn {
-      background: none;
-      border: none;
-      color: var(--accent);
-      font-size: 18px;
-      cursor: pointer;
-      margin-left: 7px;
-      transition: color 0.2s;
-      position: absolute;
-      right: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      padding: 2px 2px;
+    .menu-item i {
+      margin-right: 10px;
+      color: #e53935;
     }
-    .copy-btn:hover { color: #387fff; }
-    .input-area {
-      width: 100%;
-      margin-bottom: 13px;
-      margin-top: 6px;
+
+    .menu-item input[type="checkbox"] {
+      transform: scale(1.2);
+      margin-right: 10px;
     }
-    .input-area input {
-      width: 100%;
-      background: var(--input-bg);
-      color: var(--text-main);
-      border: 1.5px solid #232c3b;
-      border-radius: 8px;
-      padding: 13px 12px;
-      font-size: 15px;
-      margin-top: 2px;
-      font-weight: 500;
-      outline: none;
-      transition: border-color 0.2s;
+
+    .menu-item input[type="number"] {
+      width: 60px;
+      padding: 6px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
     }
-    .input-area input:focus {
-      border-color: var(--accent);
+
+    .order-box {
+      background-color: #fefefe;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      padding: 20px;
+      line-height: 1.6;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      margin-top: 20px;
     }
-    .button {
-      width: 100%;
-      padding: 14px;
-      background: var(--accent);
-      color: #fff;
-      font-weight: 700;
-      border: none;
-      border-radius: 9px;
-      margin-top: 7px;
-      font-size: 16px;
-      letter-spacing: 0.1px;
-      box-shadow: 0 2px 8px #387fff33;
-      cursor: pointer;
-      transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
+
+    .order-box i {
+      color: green;
+      margin-right: 5px;
     }
-    .button:hover {
-      background: #2c63c8;
-      transform: scale(1.02);
-    }
-    footer {
-      text-align: center;
-      font-size: 14px;
-      color: var(--text-sec);
-      margin: 38px 0 13px 0;
-      font-weight: 500;
-    }
-    @media (max-width: 500px) {
-      .container { 
-        max-width: 97vw;
-        padding: 19px 3vw 18px 3vw;
-        margin: 20px auto 0 auto;
-      }
-      .payment-method { width: 44vw; min-width: 110px; }
-      .payment-methods { gap: 13px;}
-      .iban-value { max-width: 110px;}
+
+    #order-status {
+      margin-top: 30px;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="icon-top">
-      <svg viewBox="0 0 40 40"><rect x="4" y="9" width="32" height="22" rx="4" fill="currentColor" opacity="0.12"/><rect x="4" y="9" width="32" height="22" rx="4" fill="none" stroke="currentColor" stroke-width="2"/><rect x="6" y="17" width="28" height="3" rx="1.5" fill="currentColor"/><rect x="8" y="25" width="7" height="2.2" rx="1.1" fill="currentColor" opacity="0.18"/></svg>
-    </div>
-    <h2>Ödeme Yöntemi Seçin</h2>
-    <div class="payment-methods">
-      <div class="payment-method" onclick="selectMethod('Ziraat', this)">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/69/Ziraat_Bankas%C4%B1_logo.png" alt="Ziraat" style="height:32px;">
-        <span>Ziraat - IBAN</span>
-      </div>
-      <div class="payment-method" onclick="selectMethod('Garanti', this)">
-        <img src="https://upload.wikimedia.org/wikipedia/tr/7/75/Garanti_BBVA.png" alt="Garanti" style="height:32px;">
-        <span>Garanti - IBAN</span>
-      </div>
-      <div class="payment-method" onclick="selectMethod('Papara', this)">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/c/c0/PAPARA.png" alt="Papara" style="height:30px;">
-        <span>Papara No</span>
-      </div>
-    </div>
-    <div class="payment-info" id="paymentInfo">
-      <div class="payment-info-title" id="bankTitle"></div>
-      <div class="info-field">
-        <span class="info-label">Ad Soyad:</span>
-        <span class="info-value" id="ownerName">Berkay Taşkan</span>
-        <button class="copy-btn" onclick="copyText('ownerName')" title="Kopyala">Kopyala</button>
-      </div>
-      <div class="info-field">
-        <span class="info-label" id="ibanLabel">IBAN:</span>
-        <span class="info-value iban-value" id="ibanInfo"></span>
-        <button class="copy-btn" onclick="copyText('ibanInfo')" title="Kopyala">Kopyala</button>
-      </div>
-      <div class="input-area">
-        <input type="tel" id="amount" placeholder="₺ Tutar">
-      </div>
-      <button class="button" onclick="confirmPayment()">Ödemeyi Bildirin</button>
-    </div>
+  <div class="navbar">
+    <span><i class="fas fa-burger"></i> ESOS Sipariş</span>
+    <i class="fas fa-shopping-bag"></i>
   </div>
-  <footer>Güvenli ödeme sistemi &copy; 2025</footer>
+
+  <div class="container">
+    <div class="logo">
+      <img src="https://i.hizliresim.com/7sp9pd6.png" alt="ESOS Logo">
+    </div>
+
+    <h1><i class="fas fa-utensils"></i> Sipariş Formu</h1>
+
+    <div class="form-group">
+      <label><i class="fas fa-user"></i> Ad Soyad</label>
+      <input type="text" id="name" placeholder="Adınızı girin">
+    </div>
+
+    <div class="form-group">
+      <label><i class="fas fa-phone"></i> Telefon</label>
+      <input type="text" id="phone" placeholder="Telefon numaranız">
+    </div>
+
+    <div class="form-group">
+      <label><i class="fas fa-comment-dots"></i> Not (isteğe bağlı)</label>
+      <input type="text" id="note" placeholder="Acısız olsun, bol kaşarlı...">
+    </div>
+
+    <div class="form-group">
+      <label><i class="fas fa-list"></i> Menü Seçimi</label>
+      <div id="menu-list">Yükleniyor...</div>
+    </div>
+
+    <button onclick="submitOrder(event)"><i class="fas fa-paper-plane"></i> Siparişi Gönder</button>
+
+    <h1 style="margin-top: 40px;"><i class="fas fa-box-open"></i> Sipariş Durumu</h1>
+    <div id="order-status">Yükleniyor...</div>
+  </div>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+
   <script>
-    const info = {
-      Ziraat: { 
-        name: "Berkay Taşkan", 
-        iban: "TR03 0001 0090 1019 7947 4050 01", 
-        title: "Ziraat Bankası Hesap Bilgileri" 
-      },
-      Garanti: { 
-        name: "Berkay Taşkan", 
-        iban: "TR36 0006 2000 0530 0006 8912 70", 
-        title: "Garanti BBVA Hesap Bilgileri" 
-      },
-      Papara: { 
-        name: "Berkay Taşkan", 
-        iban: "1875239794", 
-        title: "Papara Hesap Bilgileri"
-      }
+    const firebaseConfig = {
+      apiKey: "AIzaSyCDNbgKzJdBKEZUnWH09Az6Z...",
+      authDomain: "onlinesiparis-2cf91.firebaseapp.com",
+      projectId: "onlinesiparis-2cf91",
+      storageBucket: "onlinesiparis-2cf91.appspot.com",
+      messagingSenderId: "366801664755",
+      appId: "1:366801664755:web:...",
+      databaseURL: "https://onlinesiparis-2cf91-default-rtdb.europe-west1.firebasedatabase.app"
     };
-    let selected = "";
 
-    function selectMethod(method, element) {
-      selected = method;
-      document.getElementById("ownerName").textContent = info[method].name;
-      document.getElementById("ibanInfo").textContent = info[method].iban;
-      document.getElementById("ibanLabel").textContent = method === "Papara" ? "Papara No:" : "IBAN:";
-      document.getElementById("bankTitle").textContent = info[method].title;
-      document.getElementById("paymentInfo").style.display = "block";
-      document.querySelectorAll(".payment-method").forEach(el => el.classList.remove("selected"));
-      element.classList.add("selected");
-    }
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+    const menuList = document.getElementById('menu-list');
 
-    function copyText(id) {
-      const text = document.getElementById(id).textContent;
-      navigator.clipboard.writeText(text).then(() => {
-        Swal.fire({
-          icon: 'success',
-          title: 'Kopyalandı',
-          text: `"${text}" panoya kopyalandı.`,
-          showConfirmButton: false,
-          timer: 1200
-        });
-      });
-    }
-
-    function confirmPayment() {
-      const amount = document.getElementById("amount").value;
-      if (!amount || !selected) {
-        Swal.fire({
-          icon: 'warning',
-          title: 'Eksik bilgi',
-          text: 'Lütfen yöntem seçin ve tutar girin.',
-          confirmButtonText: 'Tamam'
-        });
+    db.ref("menu").on("value", function(snapshot) {
+      menuList.innerHTML = "";
+      if (!snapshot.exists()) {
+        menuList.innerHTML = "Menü bulunamadı.";
         return;
       }
 
-      Swal.fire({
-        title: 'Ödeme Bildiriliyor...',
-        text: 'WhatsApp\'a yönlendiriliyorsunuz.',
-        icon: 'info',
-        showConfirmButton: false,
-        timer: 950
+      snapshot.forEach((child) => {
+        const item = child.val();
+        const key = child.key;
+        const div = document.createElement("div");
+        div.className = "menu-item";
+        div.innerHTML = `
+          <input type="checkbox" id="item-${key}" value="${item.name}" data-price="${item.price}">
+          <i class="fas fa-hamburger"></i>
+          <label for="item-${key}">${item.name} - ₺${item.price}</label>
+          <input type="number" id="qty-${key}" min="1" value="1">
+        `;
+        menuList.appendChild(div);
+      });
+    });
+
+    function submitOrder(e) {
+      const button = e.target;
+      const rect = button.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      button.style.setProperty("--x", x + "px");
+      button.style.setProperty("--y", y + "px");
+
+      const name = document.getElementById("name").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+      const note = document.getElementById("note").value.trim();
+
+      if (!name || !phone) {
+        Swal.fire("Eksik Bilgi", "Lütfen ad ve telefon numaranızı girin.", "warning");
+        return;
+      }
+
+      const selectedItems = [];
+      document.querySelectorAll("input[type=checkbox]:checked").forEach((checkbox) => {
+        const key = checkbox.id.replace("item-", "");
+        const itemName = checkbox.value;
+        const itemPrice = parseFloat(checkbox.dataset.price);
+        const quantity = parseInt(document.getElementById("qty-" + key).value || "1");
+        selectedItems.push({ name: itemName, price: itemPrice, quantity });
       });
 
-      const name = info[selected].name;
-      const iban = info[selected].iban;
-      const label = selected === "Papara" ? "Papara No" : "IBAN";
-      const message = `Merhaba, ödeme yaptım.%0AAd Soyad: ${name}%0A${label}: ${iban}%0ATutar: ${amount}₺%0AÖdeme Yöntemi: ${selected}`;
-      setTimeout(() => {
-        window.location.href = `https://wa.me/447442525362?text=${message}`;
-      }, 950);
+      if (selectedItems.length === 0) {
+        Swal.fire("Ürün Seçilmedi", "Lütfen en az bir ürün seçin.", "info");
+        return;
+      }
+
+      const now = new Date().toLocaleString();
+      const orderData = {
+        name,
+        phone,
+        note,
+        items: selectedItems,
+        date: now,
+        status: "hazırlanıyor"
+      };
+
+      const orderRef = db.ref("orders").push();
+      orderRef.set(orderData).then(() => {
+        localStorage.setItem("orderKey", orderRef.key);
+        Swal.fire("Sipariş Alındı", "Siparişiniz hazırlanıyor.", "success");
+        listOwnOrder();
+      });
     }
+
+    const statusDiv = document.getElementById("order-status");
+
+    function listOwnOrder() {
+      const myOrderKey = localStorage.getItem("orderKey");
+      if (!myOrderKey) {
+        statusDiv.innerHTML = "<em>Henüz sipariş vermediniz.</em>";
+        return;
+      }
+
+      db.ref("orders/" + myOrderKey).on("value", (snapshot) => {
+        statusDiv.innerHTML = "";
+        if (!snapshot.exists()) {
+          statusDiv.innerHTML = "<em>Siparişiniz bulunamadı.</em>";
+          return;
+        }
+
+        const order = snapshot.val();
+        let itemsText = "";
+        let total = 0;
+
+        order.items.forEach(item => {
+          const subtotal = item.price * item.quantity;
+          total += subtotal;
+          itemsText += `• ${item.name} x${item.quantity} - ₺${subtotal}<br>`;
+        });
+
+        const noteText = order.note ? `<br><strong>Not:</strong> ${order.note}` : "";
+
+        if (order.status === "onaylandı" && !sessionStorage.getItem("alreadyAlerted")) {
+          Swal.fire("Hazır!", "Siparişiniz hazırlandı!", "success");
+          sessionStorage.setItem("alreadyAlerted", "1");
+        }
+
+        const status = order.status === "onaylandı"
+          ? "<span style='color:#4caf50;font-weight:bold;'><i class='fas fa-check-circle'></i> Siparişiniz Hazır</span>"
+          : "<span style='color:#e53935;'><i class='fas fa-spinner fa-spin'></i> Hazırlanıyor...</span>";
+
+        statusDiv.innerHTML = `
+          <div class="order-box">
+            <strong>${order.name} (${order.phone})</strong><br>
+            ${itemsText}
+            <strong>Toplam: ₺${total}</strong><br>
+            <em>${order.date}</em>${noteText}<br>
+            ${status}
+          </div>
+        `;
+      });
+    }
+
+    window.onload = listOwnOrder;
   </script>
 </body>
 </html>
