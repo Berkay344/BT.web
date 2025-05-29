@@ -11,18 +11,12 @@
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: 'Poppins', sans-serif;
       background-color: #f8f9fa;
       color: #333;
     }
-
     .navbar {
       background-color: #e53935;
       padding: 15px 20px;
@@ -37,11 +31,6 @@
       z-index: 999;
       box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     }
-
-    .navbar i {
-      font-size: 22px;
-    }
-
     .container {
       max-width: 600px;
       margin: 30px auto;
@@ -50,55 +39,33 @@
       padding: 25px;
       box-shadow: 0 4px 20px rgba(0,0,0,0.1);
     }
-
-    .logo {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-
-    .logo img {
-      max-width: 150px;
-    }
-
+    .logo { text-align: center; margin-bottom: 20px; }
+    .logo img { max-width: 150px; }
     h1 {
       text-align: center;
       font-size: 20px;
       color: #e53935;
       margin-bottom: 20px;
     }
-
-    .form-group {
-      margin-bottom: 20px;
-    }
-
+    .form-group { margin-bottom: 20px; }
     label {
       display: block;
       font-weight: 600;
       margin-bottom: 6px;
     }
-
-    .form-group i {
-      margin-right: 8px;
-      color: #e53935;
-    }
-
-    input[type="text"],
-    input[type="number"] {
+    input[type="text"], input[type="number"] {
       width: 100%;
       padding: 12px;
       border: 1px solid #ccc;
       border-radius: 8px;
       background-color: #f9f9f9;
       font-size: 15px;
-      transition: 0.3s;
     }
-
     input:focus {
       outline: none;
       background-color: #fff;
       border-color: #e53935;
     }
-
     button {
       width: 100%;
       background-color: #e53935;
@@ -109,37 +76,8 @@
       font-size: 16px;
       font-weight: 600;
       cursor: pointer;
-      position: relative;
-      overflow: hidden;
     }
-
-    button:hover {
-      background-color: #c62828;
-    }
-
-    button::after {
-      content: "";
-      position: absolute;
-      background: rgba(255,255,255,0.3);
-      border-radius: 50%;
-      transform: scale(0);
-      animation: ripple 0.6s linear;
-    }
-
-    @keyframes ripple {
-      to {
-        transform: scale(4);
-        opacity: 0;
-      }
-    }
-
-    button:active::after {
-      width: 100px;
-      height: 100px;
-      top: var(--y);
-      left: var(--x);
-    }
-
+    button:hover { background-color: #c62828; }
     .menu-item {
       background-color: #f3f4f6;
       padding: 12px;
@@ -150,24 +88,16 @@
       align-items: center;
       justify-content: space-between;
     }
-
-    .menu-item i {
-      margin-right: 10px;
-      color: #e53935;
-    }
-
     .menu-item input[type="checkbox"] {
       transform: scale(1.2);
       margin-right: 10px;
     }
-
     .menu-item input[type="number"] {
       width: 60px;
       padding: 6px;
       border-radius: 6px;
       border: 1px solid #ccc;
     }
-
     .order-box {
       background-color: #fefefe;
       border: 1px solid #ccc;
@@ -177,65 +107,9 @@
       box-shadow: 0 2px 8px rgba(0,0,0,0.05);
       margin-top: 20px;
     }
-
-    .order-box i {
-      color: green;
-      margin-right: 5px;
-    }
-
-    #order-status {
-      margin-top: 30px;
-    }
   </style>
 </head>
 <body>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
-
-<script>
-  const firebaseConfig = {
-    apiKey: "AIzaSyCDNbgKzJdBKEZUnWH09Az6ZCwUefWJXhY",
-    authDomain: "onlinesiparis-2cf91.firebaseapp.com",
-    projectId: "onlinesiparis-2cf91",
-    storageBucket: "onlinesiparis-2cf91.appspot.com",
-    messagingSenderId: "366801664755",
-    appId: "1:366801664755:web:57b577f1943ebdf1ab8c85",
-    databaseURL: "https://onlinesiparis-2cf91-default-rtdb.europe-west1.firebasedatabase.app"
-  };
-
-  const app = firebase.initializeApp(firebaseConfig);
-  const db = firebase.database();
-
-  let kapaliAlertShown = false;
-
-  function showKapaliAlert() {
-    Swal.fire({
-  icon: "info",
-  title: "Şu Anda Kapalıyız",
-  html: "Sipariş sistemi şu anda kapalıdır.<br><br><strong>Sistemde Bakım</strong> Var<br><br>Lütfen Daha Sonra tekrar deneyin.",
-  allowOutsideClick: false,
-  allowEscapeKey: false,
-  showConfirmButton: false,
-  backdrop: true,
-  didClose: () => {
-    // Pencere kapatılsa bile yeniden göster
-    setTimeout(showKapaliAlert, 200);
-  }
-});
-  }
-
-  db.ref("sistemDurumu").on("value", (snapshot) => {
-    const durum = snapshot.val()?.durum || "acik";
-    if (durum === "kapali" && !kapaliAlertShown) {
-      kapaliAlertShown = true;
-      showKapaliAlert();
-    } else if (durum === "acik" && kapaliAlertShown) {
-      kapaliAlertShown = false;
-      Swal.close();
-    }
-  });
-</script>
   <div class="navbar">
     <span><i class="fas fa-burger"></i> ESOS Sipariş</span>
     <i class="fas fa-shopping-bag"></i>
@@ -273,65 +147,73 @@
     <h1 style="margin-top: 40px;"><i class="fas fa-box-open"></i> Sipariş Durumu</h1>
     <div id="order-status">Yükleniyor...</div>
   </div>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
-<script>
-  const firebaseConfig = {
-    apiKey: "AIzaSyCDNbgKzJdBKEZUnWH09Az6ZCwUefWJXhY",
-    authDomain: "onlinesiparis-2cf91.firebaseapp.com",
-    projectId: "onlinesiparis-2cf91",
-    storageBucket: "onlinesiparis-2cf91.appspot.com",
-    messagingSenderId: "366801664755",
-    appId: "1:366801664755:web:57b577f1943ebdf1ab8c85",
-    databaseURL: "https://onlinesiparis-2cf91-default-rtdb.europe-west1.firebasedatabase.app"
-  };
-  const app = firebase.initializeApp(firebaseConfig);
-  const db = firebase.database();
 
-  db.ref("sistemDurumu").on("value", (snapshot) => {
-    const durum = snapshot.val()?.durum || "acik";
-    if (durum === "kapali") {
-      Swal.fire({
-  icon: "info",
-  title: "Şu Anda Kapalıyız",
-  html: "Sipariş sistemi şu anda kapalıdır.<br><br><strong>Çalışma Saatleri:</strong> 08:00 - 19:30<br><br>Lütfen belirtilen saatler arasında tekrar deneyin.",
-  allowOutsideClick: false,
-  allowEscapeKey: false,
-  showConfirmButton: false,
-  backdrop: true,
-  didClose: () => {
-    // Pencere kapatılsa bile yeniden göster
-    setTimeout(showKapaliAlert, 200);
-  }
-});
-</script>
   <!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
 
   <script>
     const firebaseConfig = {
-      apiKey: "AIzaSyCDNbgKzJdBKEZUnWH09Az6Z...",
+      apiKey: "AIzaSyCDNbgKzJdBKEZUnWH09Az6ZCwUefWJXhY",
       authDomain: "onlinesiparis-2cf91.firebaseapp.com",
       projectId: "onlinesiparis-2cf91",
       storageBucket: "onlinesiparis-2cf91.appspot.com",
       messagingSenderId: "366801664755",
-      appId: "1:366801664755:web:...",
+      appId: "1:366801664755:web:57b577f1943ebdf1ab8c85",
       databaseURL: "https://onlinesiparis-2cf91-default-rtdb.europe-west1.firebasedatabase.app"
     };
 
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
-    const menuList = document.getElementById('menu-list');
 
+    // Sistem durumu kontrolü
+    let aktifUyari = null;
+
+db.ref("sistemDurumu").on("value", (snapshot) => {
+  const durum = snapshot.val()?.durum || "acik";
+  const neden = snapshot.val()?.neden || "normal";
+
+  if (durum === "kapali") {
+    let mesaj = "", ikon = "info";
+
+    if (neden === "normal") {
+      mesaj = "Sistem şu anda <strong>bakımdadır</strong>. Lütfen daha sonra tekrar deneyin.";
+      ikon = "warning";
+    } else if (neden === "calisma") {
+      mesaj = "Şu anda <strong>çalışma saatleri dışında</strong> olduğumuz için sistem kapalıdır.<br><br><strong>Çalışma Saatleri:</strong> 08:00 - 19:30";
+      ikon = "info";
+    } else if (neden === "carsamba") {
+      mesaj = "📅 <strong>Çarşamba günleri</strong> kapalıyız. Lütfen diğer günlerde tekrar gelin.";
+      ikon = "error";
+    }
+
+    // Aynı mesaj tekrar tekrar çıkmasın diye kontrol
+    if (aktifUyari !== neden) {
+      aktifUyari = neden;
+
+      Swal.fire({
+        icon: ikon,
+        title: "🔒 Sipariş Alınamıyor",
+        html: mesaj,
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        showConfirmButton: false
+      });
+    }
+
+  } else {
+    aktifUyari = null; // sistem açıldığında uyarı sıfırlansın
+  }
+});
+
+    // Menü yükle
+    const menuList = document.getElementById('menu-list');
     db.ref("menu").on("value", function(snapshot) {
       menuList.innerHTML = "";
       if (!snapshot.exists()) {
-        menuList.innerHTML = "Menü bulunamadı.";
+        menuList.innerHTML = "<em>Menü bulunamadı.</em>";
         return;
       }
-
       snapshot.forEach((child) => {
         const item = child.val();
         const key = child.key;
@@ -339,7 +221,6 @@
         div.className = "menu-item";
         div.innerHTML = `
           <input type="checkbox" id="item-${key}" value="${item.name}" data-price="${item.price}">
-          <i class="fas fa-hamburger"></i>
           <label for="item-${key}">${item.name} - ₺${item.price}</label>
           <input type="number" id="qty-${key}" min="1" value="1">
         `;
@@ -347,14 +228,8 @@
       });
     });
 
-    function submitOrder(e) {
-      const button = e.target;
-      const rect = button.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      button.style.setProperty("--x", x + "px");
-      button.style.setProperty("--y", y + "px");
-
+    // Sipariş gönder
+    function submitOrder() {
       const name = document.getElementById("name").value.trim();
       const phone = document.getElementById("phone").value.trim();
       const note = document.getElementById("note").value.trim();
@@ -396,6 +271,7 @@
       });
     }
 
+    // Siparişi listele
     const statusDiv = document.getElementById("order-status");
 
     function listOwnOrder() {
@@ -406,7 +282,6 @@
       }
 
       db.ref("orders/" + myOrderKey).on("value", (snapshot) => {
-        statusDiv.innerHTML = "";
         if (!snapshot.exists()) {
           statusDiv.innerHTML = "<em>Siparişiniz bulunamadı.</em>";
           return;
@@ -415,6 +290,18 @@
         const order = snapshot.val();
         let itemsText = "";
         let total = 0;
+// Eğer sipariş onaylandıysa ve daha önce uyarı gösterilmediyse
+if (order.status === "onaylandı" && !localStorage.getItem("siparisUyarisiGosterildi")) {
+  Swal.fire({
+    icon: 'success',
+    title: '✅ Siparişiniz Hazır!',
+    text: 'Lütfen teslim almaya hazırlanın.',
+    confirmButtonText: 'Tamam',
+    timer: 3000,
+    showConfirmButton: false
+  });
+  localStorage.setItem("siparisUyarisiGosterildi", "true");
+}
 
         order.items.forEach(item => {
           const subtotal = item.price * item.quantity;
@@ -423,12 +310,6 @@
         });
 
         const noteText = order.note ? `<br><strong>Not:</strong> ${order.note}` : "";
-
-        if (order.status === "onaylandı" && !sessionStorage.getItem("alreadyAlerted")) {
-          Swal.fire("Hazır!", "Siparişiniz hazırlandı!", "success");
-          sessionStorage.setItem("alreadyAlerted", "1");
-        }
-
         const status = order.status === "onaylandı"
           ? "<span style='color:#4caf50;font-weight:bold;'><i class='fas fa-check-circle'></i> Siparişiniz Hazır</span>"
           : "<span style='color:#e53935;'><i class='fas fa-spinner fa-spin'></i> Hazırlanıyor...</span>";
