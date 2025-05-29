@@ -189,6 +189,53 @@
   </style>
 </head>
 <body>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyCDNbgKzJdBKEZUnWH09Az6ZCwUefWJXhY",
+    authDomain: "onlinesiparis-2cf91.firebaseapp.com",
+    projectId: "onlinesiparis-2cf91",
+    storageBucket: "onlinesiparis-2cf91.appspot.com",
+    messagingSenderId: "366801664755",
+    appId: "1:366801664755:web:57b577f1943ebdf1ab8c85",
+    databaseURL: "https://onlinesiparis-2cf91-default-rtdb.europe-west1.firebasedatabase.app"
+  };
+
+  const app = firebase.initializeApp(firebaseConfig);
+  const db = firebase.database();
+
+  let kapaliAlertShown = false;
+
+  function showKapaliAlert() {
+    Swal.fire({
+  icon: "info",
+  title: "Şu Anda Kapalıyız",
+  html: "Sipariş sistemi şu anda kapalıdır.<br><br><strong>Sistemde Bakım</strong> Var<br><br>Lütfen Daha Sonra tekrar deneyin.",
+  allowOutsideClick: false,
+  allowEscapeKey: false,
+  showConfirmButton: false,
+  backdrop: true,
+  didClose: () => {
+    // Pencere kapatılsa bile yeniden göster
+    setTimeout(showKapaliAlert, 200);
+  }
+});
+  }
+
+  db.ref("sistemDurumu").on("value", (snapshot) => {
+    const durum = snapshot.val()?.durum || "acik";
+    if (durum === "kapali" && !kapaliAlertShown) {
+      kapaliAlertShown = true;
+      showKapaliAlert();
+    } else if (durum === "acik" && kapaliAlertShown) {
+      kapaliAlertShown = false;
+      Swal.close();
+    }
+  });
+</script>
   <div class="navbar">
     <span><i class="fas fa-burger"></i> ESOS Sipariş</span>
     <i class="fas fa-shopping-bag"></i>
@@ -226,7 +273,39 @@
     <h1 style="margin-top: 40px;"><i class="fas fa-box-open"></i> Sipariş Durumu</h1>
     <div id="order-status">Yükleniyor...</div>
   </div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyCDNbgKzJdBKEZUnWH09Az6ZCwUefWJXhY",
+    authDomain: "onlinesiparis-2cf91.firebaseapp.com",
+    projectId: "onlinesiparis-2cf91",
+    storageBucket: "onlinesiparis-2cf91.appspot.com",
+    messagingSenderId: "366801664755",
+    appId: "1:366801664755:web:57b577f1943ebdf1ab8c85",
+    databaseURL: "https://onlinesiparis-2cf91-default-rtdb.europe-west1.firebasedatabase.app"
+  };
+  const app = firebase.initializeApp(firebaseConfig);
+  const db = firebase.database();
 
+  db.ref("sistemDurumu").on("value", (snapshot) => {
+    const durum = snapshot.val()?.durum || "acik";
+    if (durum === "kapali") {
+      Swal.fire({
+  icon: "info",
+  title: "Şu Anda Kapalıyız",
+  html: "Sipariş sistemi şu anda kapalıdır.<br><br><strong>Çalışma Saatleri:</strong> 08:00 - 19:30<br><br>Lütfen belirtilen saatler arasında tekrar deneyin.",
+  allowOutsideClick: false,
+  allowEscapeKey: false,
+  showConfirmButton: false,
+  backdrop: true,
+  didClose: () => {
+    // Pencere kapatılsa bile yeniden göster
+    setTimeout(showKapaliAlert, 200);
+  }
+});
+</script>
   <!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
