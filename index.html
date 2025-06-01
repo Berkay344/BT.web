@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>ESOS Fastfood Sipariş</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <!-- SweetAlert2 -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <!-- Font Awesome -->
@@ -202,6 +202,24 @@ body, html {
 ul, li {
   max-width: 100%;
   overflow-wrap: break-word;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;  /* ❌ Sağa sola scroll'u engeller */
+  max-width: 100vw;
+  touch-action: pan-y; /* Sadece yukarı-aşağı kaydırma */
+}
+
+.container, .menu-box, .site-wrapper {
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+body {
+  touch-action: manipulation;
 }
 
   </style>
@@ -706,26 +724,24 @@ statusDiv.innerHTML = `
 window.addEventListener("load", () => {
   const bugun = new Date().toISOString().split('T')[0];
 
-  firebase.database().ref("gununMenusu/" + bugun).once("value").then(snapshot => {
-    const data = snapshot.val();
-    if (data) {
-      const items = data.aciklama.split(",").map(item => item.trim());
-      const listeHTML = items.map(item => `
-        <li><i class="fas fa-utensils" style="color:#e74c3c;"></i> ${item}</li>
-      `).join("");
+  firebase.database().ref("gununMenusu/" + bugun).on("value", (snapshot) => {
+  const data = snapshot.val();
+  if (data) {
+    const items = data.aciklama.split(",").map(item => item.trim());
+    const listeHTML = items.map(item => `
+      <li><i class="fas fa-utensils" style="color:#e74c3c;"></i> ${item}</li>
+    `).join("");
 
-      document.getElementById("gununMenusu").innerHTML = `
-        <h3><i class="fas fa-concierge-bell"></i> ${data.baslik}</h3>
-        <ul>${listeHTML}</ul>
-      `;
-    } else {
-      document.getElementById("gununMenusu").innerHTML = `
-        <p><i class="fas fa-exclamation-circle"></i> Bugün için menü girilmemiş.</p>`;
-    }
-  }).catch(() => {
     document.getElementById("gununMenusu").innerHTML = `
-      <p><i class="fas fa-times-circle"></i> Menü yüklenemedi.</p>`;
-  });
+      <h3><i class="fas fa-concierge-bell"></i> ${data.baslik}</h3>
+      <ul>${listeHTML}</ul>
+    `;
+  } else {
+    document.getElementById("gununMenusu").innerHTML = `
+      <p><i class="fas fa-info-circle"></i> Bugün için menü girilmemiş.</p>`;
+  }
+});
+
 });
 </script>
 </script>
