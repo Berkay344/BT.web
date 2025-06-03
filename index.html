@@ -337,7 +337,7 @@ db.ref("sistemDurumu").on("value", (snapshot) => {
     let mesaj = "", ikon = "info";
 
     if (neden === "normal") {
-      mesaj = "Sistem şu anda <strong>bakımdadır</strong>. Lütfen daha sonra tekrar deneyin.";
+      mesaj = "Sistem şu anda <strong>bakımdadır</strong> Yada <strong> Kapalıdır </strong> Lütfen daha sonra tekrar deneyin.";
       ikon = "warning";
     } else if (neden === "calisma") {
       mesaj = "Şu anda <strong>çalışma saatleri dışında</strong> olduğumuz için sistem kapalıdır.<br><br><strong>Çalışma Saatleri:</strong> 08:00 - 19:30";
