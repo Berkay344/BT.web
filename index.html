@@ -222,6 +222,24 @@ body {
   touch-action: manipulation;
 }
 
+.pasif-item {
+  opacity: 0.5;
+}
+
+.stok-uyari {
+  font-size: 15px;
+  color: #111; /* Neredeyse siyah */
+  font-weight: 900; /* Daha koyu */
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.stok-uyari i {
+  color: #d32f2f; /* Kırmızı uyarı rengi */
+  font-size: 18px;
+}
+
   </style>
 </head>
 <body>
@@ -358,24 +376,41 @@ db.ref("sistemDurumu").on("value", (snapshot) => {
     // Menü yükle
     const menuList = document.getElementById('menu-list');
     db.ref("menu").on("value", function(snapshot) {
-      menuList.innerHTML = "";
-      if (!snapshot.exists()) {
-        menuList.innerHTML = "<em>Menü bulunamadı.</em>";
-        return;
-      }
-      snapshot.forEach((child) => {
-        const item = child.val();
-        const key = child.key;
-        const div = document.createElement("div");
-        div.className = "menu-item";
-        div.innerHTML = `
-          <input type="checkbox" id="item-${key}" value="${item.name}" data-price="${item.price}">
-          <label for="item-${key}">${item.name} - ₺${item.price}</label>
-          <input type="number" id="qty-${key}" min="1" value="1">
-        `;
-        menuList.appendChild(div);
-      });
-    });
+  menuList.innerHTML = "";
+  if (!snapshot.exists()) {
+    menuList.innerHTML = "<em>Menü bulunamadı.</em>";
+    return;
+  }
+
+  snapshot.forEach((child) => {
+    const item = child.val();
+    const key = child.key;
+    const div = document.createElement("div");
+    div.className = "menu-item";
+
+    const disabled = item.active ? "" : "disabled";
+    const disabledClass = item.active ? "" : "pasif-item";
+
+    const uyarıYazısı = !item.active
+  ? `<div class="stok-uyari">
+  <i class="fas fa-box-open"></i> Ürün şu an elimizde yok
+</div>`
+  : "";
+
+    div.innerHTML = `
+      ${uyarıYazısı}
+      <input type="checkbox" id="item-${key}" value="${item.name}" data-price="${item.price}" ${disabled}>
+      <label for="item-${key}">${item.name} - ₺${item.price}</label>
+      <input type="number" id="qty-${key}" min="1" value="1" ${disabled}>
+    `;
+
+    if (!item.active) {
+      div.classList.add(disabledClass);
+    }
+
+    menuList.appendChild(div);
+  });
+});
 
 function updateCartCount() {
   const checkedBoxes = document.querySelectorAll("input[type=checkbox]:checked");
